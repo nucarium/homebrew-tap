@@ -1,0 +1,45 @@
+name: Build
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  # Run by hand to prove a real install on both platforms. It downloads the
+  # release archives, so it only passes once the nucarium-cli repository and
+  # its releases are public.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Cheap, and needs no download: the script lints and the formula passes
+  # Homebrew's own style rules.
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: shellcheck scripts/*.sh
+      - name: Check the formula's style
+        run: |
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          # The formula arrives with the first release that has macOS archives.
+          if ls Formula/*.rb >/dev/null 2>&1; then brew style Formula/*.rb; else echo "No formula yet."; fi
+
+  install:
+    if: github.event_name == 'workflow_dispatch'
+    strategy:
+      matrix:
+        runner: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install from the formula and run its test
+        run: |
+          if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"; fi
+          brew install --formula ./Formula/nucleate.rb
+          brew test nucleate
