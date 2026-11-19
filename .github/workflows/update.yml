@@ -1,0 +1,52 @@
+name: Update formula
+
+# Rewrites Formula/nucleate.rb when nucarium-cli publishes a release. That
+# repository's Binaries workflow sends this one the version and the four
+# checksums once the archives are attached to the release, so nothing here
+# needs to read the other repository.
+
+on:
+  repository_dispatch:
+    types: [nucleate-released]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-formula
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    # Everything from the event goes through the environment, and the script
+    # refuses a version or a checksum that is not exactly the right shape.
+    env:
+      VERSION: ${{ github.event.client_payload.version }}
+      SHA256_AARCH64_APPLE_DARWIN: ${{ github.event.client_payload.sha256.aarch64-apple-darwin }}
+      SHA256_X86_64_APPLE_DARWIN: ${{ github.event.client_payload.sha256.x86_64-apple-darwin }}
+      SHA256_AARCH64_UNKNOWN_LINUX_MUSL: ${{ github.event.client_payload.sha256.aarch64-unknown-linux-musl }}
+      SHA256_X86_64_UNKNOWN_LINUX_MUSL: ${{ github.event.client_payload.sha256.x86_64-unknown-linux-musl }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Write the formula
+        run: scripts/update-formula.sh "$VERSION"
+      - name: Check the formula's style
+        run: |
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          brew style Formula/nucleate.rb
+      # Committed through the API, so GitHub signs the commit.
+      - name: Commit the formula
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          path=Formula/nucleate.rb
+          if git ls-files --error-unmatch "$path" >/dev/null 2>&1 && git diff --quiet -- "$path"; then
+            echo "The formula is already at $VERSION."
+            exit 0
+          fi
+          set -- -X PUT "repos/$GITHUB_REPOSITORY/contents/$path" -f "message=feat: nucleate $VERSION" -f "branch=$GITHUB_REF_NAME" -f "content=$(base64 -w0 "$path")"
+          if blob=$(gh api "repos/$GITHUB_REPOSITORY/contents/$path?ref=$GITHUB_REF_NAME" --jq .sha 2>/dev/null); then
+            set -- "$@" -f "sha=$blob"
+          fi
+          gh api "$@" --jq '.commit.sha'

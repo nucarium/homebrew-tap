@@ -33,6 +33,7 @@ Linux.
 |---|---|
 | `Formula/nucleate.rb` | The formula. It is written by the script; do not edit it by hand |
 | `scripts/update-formula.sh` | Writes the formula for one release of `nucleate` |
+| `.github/workflows/update.yml` | Rewrites the formula when `nucarium-cli` publishes a release |
 | `.github/workflows/build.yml` | Lints the script and the formula; installs for real when run by hand |
 
 The formula installs prebuilt binaries: `aarch64-apple-darwin` and
@@ -41,15 +42,21 @@ and `x86_64-unknown-linux-musl` builds on Linux.
 
 ## After a release of nucleate
 
-Once `nucarium-cli` has published `v<version>` with its four archives and
-their checksums:
+Nothing to do. When `nucarium-cli` publishes a release, its Binaries workflow
+builds the four archives, attaches them to the release, and then tells this
+repository the version and the four checksums. The **Update formula**
+workflow here rewrites `Formula/nucleate.rb` from them, checks its style, and
+commits it as `feat: nucleate <version>`. `brew upgrade nucleate` picks it up
+from there.
+
+For that message to arrive, the Robot App that `nucarium-cli` releases with
+must be installed on this repository as well.
+
+To do the same by hand, signed in to `gh`:
 
 ```bash
 scripts/update-formula.sh <version>
 ```
-
-It reads the published checksums and rewrites `Formula/nucleate.rb`. Check
-the result, then commit it as `feat: nucleate <version>` and push.
 
 ```bash
 brew style Formula/nucleate.rb

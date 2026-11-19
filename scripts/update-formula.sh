@@ -3,12 +3,14 @@
 #
 #   scripts/update-formula.sh 0.1.1
 #
-# It reads the four checksums published beside the release's archives in
-# github.com/nucarium/nucarium-cli and writes the formula from them. Nothing
-# else is edited by hand: to change the formula, change this script.
+# It writes the formula from the four checksums published beside the release's
+# archives in github.com/nucarium/nucarium-cli. Nothing else is edited by hand:
+# to change the formula, change this script.
 #
-# The checksums are fetched with `gh` when it is signed in (which also works
-# while the repository is private), and with `curl` otherwise.
+# The checksums come from, in order: the environment (SHA256_<TARGET>, with the
+# target in capitals and underscores, which is how the release tells this
+# repository about itself), `gh` when it is signed in (which also works while
+# that repository is private), or `curl`.
 set -eu
 
 repo=nucarium/nucarium-cli
@@ -29,8 +31,10 @@ url() { printf 'https://github.com/%s/releases/download/%s/%s' "$repo" "$tag" "$
 # Prints the SHA-256 published for one target's archive.
 checksum() {
   file=$(archive "$1").sha256
-  if [ -n "${NUCLEATE_CHECKSUM_DIR:-}" ]; then
-    line=$(cat "$NUCLEATE_CHECKSUM_DIR/$file")
+  name=SHA256_$(printf '%s' "$1" | tr 'a-z-' 'A-Z_')
+  given=$(eval "printf '%s' \"\${$name:-}\"")
+  if [ -n "$given" ]; then
+    line=$given
   elif command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
     line=$(gh release download "$tag" --repo "$repo" --pattern "$file" --output -)
   else
