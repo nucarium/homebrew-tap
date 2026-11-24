@@ -5,30 +5,30 @@
 class Nucleate < Formula
   desc "Multi-repo session workspaces for coding agents"
   homepage "https://nucarium.dev"
-  version "0.7.2"
+  version "0.8.0"
   license any_of: ["MIT", "Apache-2.0"]
 
   uses_from_macos "git"
 
   on_macos do
     on_arm do
-      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.7.2/nucleate-v0.7.2-aarch64-apple-darwin.tar.gz"
-      sha256 "f0d1e91486c8773a2f2a997d5efc0df622b4bed63e2dfaa4c9cfeeb4fc21cffa"
+      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.8.0/nucleate-v0.8.0-aarch64-apple-darwin.tar.gz"
+      sha256 "66cf5e7e3540bb5c1e24594f7b8dcfe6f1141165b552344faa21d33968e3676c"
     end
     on_intel do
-      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.7.2/nucleate-v0.7.2-x86_64-apple-darwin.tar.gz"
-      sha256 "ebe1cf9af3422ef5334df6198269d01897762ad86776766eb85c77c478c46e6a"
+      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.8.0/nucleate-v0.8.0-x86_64-apple-darwin.tar.gz"
+      sha256 "8ba50af323098a62d451da44be652f1b1d38f6bf032e5350df2455ab421eb952"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.7.2/nucleate-v0.7.2-aarch64-unknown-linux-musl.tar.gz"
-      sha256 "dd8fba2de185684d5ba2dc1bebfe829bb88c86b44c6180eda2f81e37060513dd"
+      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.8.0/nucleate-v0.8.0-aarch64-unknown-linux-musl.tar.gz"
+      sha256 "27d8382b786da7b53e8b652c87d1514059cf431dfcf9dbf6f707a82eceb59c80"
     end
     on_intel do
-      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.7.2/nucleate-v0.7.2-x86_64-unknown-linux-musl.tar.gz"
-      sha256 "35309da8d3ddb9d0ca9517bce425f913c000cc0e79c66859fd0895075bb57d7d"
+      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.8.0/nucleate-v0.8.0-x86_64-unknown-linux-musl.tar.gz"
+      sha256 "8af58aa27d76b2219760052898010aef4d3f16205513b9e3f48173d488d7e201"
     end
   end
 
