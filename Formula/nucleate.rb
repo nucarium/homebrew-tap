@@ -5,30 +5,30 @@
 class Nucleate < Formula
   desc "Multi-repo session workspaces for coding agents"
   homepage "https://nucarium.dev"
-  version "0.9.0"
+  version "0.10.0"
   license any_of: ["MIT", "Apache-2.0"]
 
   uses_from_macos "git"
 
   on_macos do
     on_arm do
-      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.9.0/nucleate-v0.9.0-aarch64-apple-darwin.tar.gz"
-      sha256 "94b33b6f318cc287b426134ee6c0646b369f77e7467b5da3b1d7361cd2e99eef"
+      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.10.0/nucleate-v0.10.0-aarch64-apple-darwin.tar.gz"
+      sha256 "f0826c503450a263aa9dc3d2dda2d0283f52dc37e4835abc031cc5484efe1d40"
     end
     on_intel do
-      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.9.0/nucleate-v0.9.0-x86_64-apple-darwin.tar.gz"
-      sha256 "ddf10337c183119ffa66f62e59a9bc6ba11448d831f06b5d533f20ca40ab22b0"
+      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.10.0/nucleate-v0.10.0-x86_64-apple-darwin.tar.gz"
+      sha256 "cf578f60e103e3858a7e2bdb0bc33f858319c7225b52567818e28eeb182650bd"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.9.0/nucleate-v0.9.0-aarch64-unknown-linux-musl.tar.gz"
-      sha256 "b0366e1ccdf1fb4ead2b3dc144bb2d1a0ecf68aa5890a7de9ca918dfc8728ecf"
+      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.10.0/nucleate-v0.10.0-aarch64-unknown-linux-musl.tar.gz"
+      sha256 "ac9c16fe7a80f9b5a5324841e17b5e7ec203dde2f5dc9f8fa5bb60473157d1e4"
     end
     on_intel do
-      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.9.0/nucleate-v0.9.0-x86_64-unknown-linux-musl.tar.gz"
-      sha256 "39cb848dc889bf9409c9d074f60f97b470a43522953dbeb1dac9c4271c62db5c"
+      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.10.0/nucleate-v0.10.0-x86_64-unknown-linux-musl.tar.gz"
+      sha256 "645d7fedb2b09441b7a815253c03feff19636eb10e6a0dcd5bb072a9acc48969"
     end
   end
 
