@@ -5,30 +5,30 @@
 class Nucleate < Formula
   desc "Multi-repo session workspaces for coding agents"
   homepage "https://nucarium.dev"
-  version "0.11.0"
+  version "0.12.0"
   license any_of: ["MIT", "Apache-2.0"]
 
   uses_from_macos "git"
 
   on_macos do
     on_arm do
-      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.11.0/nucleate-v0.11.0-aarch64-apple-darwin.tar.gz"
-      sha256 "ffa3306064da3609b6735af9c63c36fb2648e27fdde808a2f5d7578009b48086"
+      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.12.0/nucleate-v0.12.0-aarch64-apple-darwin.tar.gz"
+      sha256 "80d5c9392142848f408c7f093f3b59f3c36a8468b4e7dbcc3d22facf20d18796"
     end
     on_intel do
-      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.11.0/nucleate-v0.11.0-x86_64-apple-darwin.tar.gz"
-      sha256 "ce90f2cbfd0e352e6346f4377529ccc11560b093d1423c9a69f3383f139a0812"
+      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.12.0/nucleate-v0.12.0-x86_64-apple-darwin.tar.gz"
+      sha256 "5a3a5863d3f29d784507f51444dcb08ca6130545cdb1bfd351c7b06fc5b8f6eb"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.11.0/nucleate-v0.11.0-aarch64-unknown-linux-musl.tar.gz"
-      sha256 "3b17b05cc95cf7b8ebb225bfb58b322d691f567760760453f4a413aedac8845d"
+      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.12.0/nucleate-v0.12.0-aarch64-unknown-linux-musl.tar.gz"
+      sha256 "63ed622957167a713fc0332db100f3c376f8da07e6e19cc78988e156b859a8c1"
     end
     on_intel do
-      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.11.0/nucleate-v0.11.0-x86_64-unknown-linux-musl.tar.gz"
-      sha256 "70f2e9fd00db1dbf0bf17aeef41fb35c263d8309ab8b9f72d0ac43796e00b497"
+      url "https://github.com/nucarium/nucarium-cli/releases/download/v0.12.0/nucleate-v0.12.0-x86_64-unknown-linux-musl.tar.gz"
+      sha256 "7114e8c5fc700995e49be04793b915ab81ef6ed3527c03b3be73b1cbec3e48f0"
     end
   end
 
